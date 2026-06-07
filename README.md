@@ -20,9 +20,11 @@ and the shareable Splat Report.
 ## Run it
 
 ```bash
-npm install
-npm run dev        # LAN-exposed — open the URL on your phone for touch play
+./run_dev.sh       # installs deps if needed, prints desktop + phone URLs
 ```
+
+(or manually: `npm install && npm run dev` — the server is LAN-exposed, so
+open the network URL on your phone for touch play.)
 
 | Input | Touch | Desktop |
 |---|---|---|
