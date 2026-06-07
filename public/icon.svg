@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
+  <!-- The Bad Birds — American Goldfinch (Underestimated) -->
+  <rect width="512" height="512" rx="96" fill="#2B2D42"/>
+  <!-- body -->
+  <ellipse cx="256" cy="290" rx="140" ry="118" fill="#FFB627"/>
+  <!-- wing -->
+  <ellipse cx="216" cy="306" rx="78" ry="48" fill="#2B2D42" transform="rotate(-24 216 306)"/>
+  <ellipse cx="216" cy="306" rx="62" ry="34" fill="#FF6B35" transform="rotate(-24 216 306)" opacity="0.25"/>
+  <!-- tail -->
+  <polygon points="120,330 36,372 60,300" fill="#2B2D42"/>
+  <!-- head cap -->
+  <path d="M 300 180 A 70 70 0 0 1 388 218 L 330 238 Z" fill="#2B2D42"/>
+  <!-- head -->
+  <circle cx="330" cy="222" r="62" fill="#FFB627"/>
+  <path d="M 290 176 Q 330 150 372 180 L 352 206 Q 326 192 302 202 Z" fill="#2B2D42"/>
+  <!-- eye: furious -->
+  <circle cx="346" cy="218" r="11" fill="#2B2D42"/>
+  <line x1="324" y1="198" x2="362" y2="210" stroke="#2B2D42" stroke-width="10" stroke-linecap="round"/>
+  <!-- beak -->
+  <polygon points="384,224 432,238 384,252" fill="#FF6B35"/>
+  <!-- the payload -->
+  <circle cx="256" cy="448" r="14" fill="#C9D6A3"/>
+  <circle cx="284" cy="462" r="8" fill="#C9D6A3"/>
+</svg>

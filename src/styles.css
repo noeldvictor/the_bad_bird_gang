@@ -1,0 +1,350 @@
+/* The Bad Birds — HUD layout per GAME_DESIGN.md §7.
+ * Palette: sunset #FF6B35 · gold #FFB627 · asphalt #2B2D42 ·
+ * goose #06A77D · chrome #E0E0E2 · club purple #9B5DE5 · splat #C9D6A3
+ */
+
+:root {
+  --sunset: #ff6b35;
+  --gold: #ffb627;
+  --asphalt: #2b2d42;
+  --goose: #06a77d;
+  --chrome: #e0e0e2;
+  --club: #9b5de5;
+  --splat: #c9d6a3;
+  --safe-top: env(safe-area-inset-top, 0px);
+  --safe-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+  user-select: none;
+  -webkit-user-select: none;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: var(--asphalt);
+  font-family: -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  color: var(--chrome);
+  overscroll-behavior: none;
+  position: fixed;
+}
+
+#app {
+  position: fixed;
+  inset: 0;
+}
+
+#game {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  touch-action: none;
+}
+
+.hidden {
+  display: none !important;
+}
+
+/* ── HUD ───────────────────────────────────────────────── */
+
+#hud {
+  position: absolute;
+  inset: 0;
+  pointer-events: none; /* children opt back in */
+}
+
+#hud-top {
+  position: absolute;
+  top: calc(8px + var(--safe-top));
+  left: 12px;
+  right: 12px;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+#hud-score {
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--gold);
+  font-variant-numeric: tabular-nums;
+  line-height: 1;
+}
+
+#hud-stars {
+  margin-top: 4px;
+  font-size: 16px;
+  letter-spacing: 2px;
+}
+
+#hud-timer {
+  font-size: 24px;
+  font-weight: 800;
+  color: var(--chrome);
+  font-variant-numeric: tabular-nums;
+}
+
+#hud-wind {
+  position: absolute;
+  top: 64px;
+  right: 0;
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--club);
+  text-shadow: 0 1px 3px rgba(0, 0, 0, 0.7);
+}
+
+/* Intro card — level title slander, fades after a few seconds */
+#intro-card {
+  position: absolute;
+  top: 22%;
+  left: 50%;
+  transform: translateX(-50%);
+  max-width: 86%;
+  padding: 14px 22px;
+  background: rgba(43, 45, 66, 0.92);
+  border: 2px solid var(--gold);
+  border-radius: 12px;
+  font-size: 17px;
+  font-weight: 700;
+  font-style: italic;
+  text-align: center;
+  color: var(--chrome);
+  transition: opacity 0.5s ease;
+}
+
+/* Floating score popups + driver bark bubbles live here.
+ * hud.ts creates absolutely-positioned children (.popup-score / .popup-bark)
+ * projected from world space each frame. */
+#popups {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.popup-score {
+  position: absolute;
+  font-weight: 900;
+  color: var(--gold);
+  text-shadow: 0 2px 3px rgba(0, 0, 0, 0.8);
+  white-space: nowrap;
+  will-change: transform, opacity;
+}
+
+.popup-bark {
+  position: absolute;
+  max-width: 200px;
+  padding: 6px 10px;
+  background: var(--chrome);
+  color: var(--asphalt);
+  border-radius: 10px;
+  border-bottom-left-radius: 2px;
+  font-size: 13px;
+  font-weight: 700;
+  text-align: center;
+  will-change: transform, opacity;
+}
+
+/* Combo counter — pulses bottom-center, above the flight zone */
+#combo {
+  position: absolute;
+  bottom: 58%;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 26px;
+  font-weight: 900;
+  color: var(--club);
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.7);
+  white-space: nowrap;
+}
+
+#combo.mayhem {
+  color: var(--sunset);
+}
+
+/* ── Act zone (bottom 55%) ─────────────────────────────── */
+
+/* Drag-steer / flick-dive ONLY. A stray tap here does nothing. */
+#flight-zone {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 55%;
+  pointer-events: auto;
+  touch-action: none;
+}
+
+/* DROP: bottom-right, inside the thumb arc. Visual circle 64px,
+ * touch target padded to 96px by the wrapper. */
+#drop-area {
+  position: absolute;
+  right: 8px;
+  bottom: calc(8px + var(--safe-bottom));
+  width: 96px;
+  height: 96px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+  touch-action: none;
+}
+
+#drop-btn {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 3px solid var(--gold);
+  background: rgba(43, 45, 66, 0.85);
+  overflow: hidden;
+  font-size: 26px;
+  cursor: pointer;
+  touch-action: none;
+}
+
+#drop-btn:active {
+  transform: scale(0.92);
+}
+
+/* Loaf meter: fills the button from the bottom as ammo reloads.
+ * hud.ts sets height: <pct>% . Empty button = no ammo. */
+#drop-fill {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 100%;
+  background: var(--sunset);
+  opacity: 0.85;
+  transition: height 0.15s ease;
+}
+
+#drop-btn .drop-icon {
+  position: relative;
+  z-index: 1;
+}
+
+#drop-btn.empty {
+  border-color: #777;
+  filter: grayscale(0.8);
+}
+
+/* EAT: transient, bottom-left (mirrors DROP) */
+#eat-area {
+  position: absolute;
+  left: 8px;
+  bottom: calc(8px + var(--safe-bottom));
+  width: 96px;
+  height: 96px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  pointer-events: auto;
+  touch-action: none;
+}
+
+#eat-btn {
+  width: 64px;
+  height: 64px;
+  border-radius: 50%;
+  border: 3px solid var(--goose);
+  background: rgba(6, 167, 125, 0.25);
+  color: var(--chrome);
+  font-size: 13px;
+  font-weight: 900;
+  cursor: pointer;
+  touch-action: none;
+  animation: eat-pulse 0.6s ease-in-out infinite alternate;
+}
+
+@keyframes eat-pulse {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(1.12);
+  }
+}
+
+/* ── Full-screen overlays (title / results) ─────────────── */
+
+#title-screen,
+#results-screen {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 14px;
+  padding: 24px;
+  text-align: center;
+  background: linear-gradient(180deg, #1d1f30 0%, var(--asphalt) 55%, #3a2530 100%);
+  pointer-events: auto;
+  z-index: 10;
+}
+
+.screen-title {
+  font-size: 34px;
+  font-weight: 900;
+  color: var(--gold);
+  line-height: 1.05;
+  text-transform: uppercase;
+}
+
+.screen-sub {
+  font-size: 15px;
+  font-style: italic;
+  color: var(--chrome);
+  opacity: 0.85;
+}
+
+.big-btn {
+  margin-top: 10px;
+  padding: 14px 38px;
+  font-size: 18px;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: var(--asphalt);
+  background: var(--gold);
+  border: none;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.big-btn.secondary {
+  background: transparent;
+  color: var(--gold);
+  border: 2px solid var(--gold);
+}
+
+.big-btn:active {
+  transform: scale(0.95);
+}
+
+.stat-line {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--chrome);
+  display: flex;
+  justify-content: space-between;
+  width: min(320px, 80vw);
+}
+
+.stat-line .stat-value {
+  color: var(--gold);
+  font-weight: 800;
+  font-variant-numeric: tabular-nums;
+}

@@ -1,0 +1,18 @@
+{
+  "name": "The Bad Birds: Birds of New Jersey",
+  "short_name": "Bad Birds",
+  "description": "They were here first. They're still mad.",
+  "start_url": "./",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#06A77D",
+  "background_color": "#2B2D42",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}

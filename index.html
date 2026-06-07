@@ -1,0 +1,52 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover"
+    />
+    <meta name="theme-color" content="#06A77D" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="manifest" href="./manifest.webmanifest" />
+    <link rel="icon" href="./icon.svg" type="image/svg+xml" />
+    <title>The Bad Birds: Birds of New Jersey</title>
+  </head>
+  <body>
+    <div id="app">
+      <canvas id="game"></canvas>
+
+      <!-- In-run HUD overlay. Top third: read-only. Bottom third: act-only. -->
+      <div id="hud" class="hidden">
+        <div id="hud-top">
+          <div id="hud-score-block">
+            <div id="hud-score">0</div>
+            <div id="hud-stars"></div>
+          </div>
+          <div id="hud-timer">90</div>
+          <div id="hud-wind" class="hidden"></div>
+        </div>
+        <div id="intro-card" class="hidden"></div>
+        <div id="popups"></div>
+        <div id="combo" class="hidden"></div>
+        <div id="flight-zone"></div>
+        <div id="eat-area" class="hidden">
+          <button id="eat-btn" type="button">EAT</button>
+        </div>
+        <div id="drop-area">
+          <button id="drop-btn" type="button" aria-label="Drop">
+            <span id="drop-fill"></span>
+            <span class="drop-icon">&#128169;</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Full-screen overlays. Content built dynamically by ui modules. -->
+      <div id="title-screen"></div>
+      <div id="results-screen" class="hidden"></div>
+    </div>
+    <script type="module" src="/src/main.ts"></script>
+  </body>
+</html>
